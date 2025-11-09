@@ -50,3 +50,46 @@
 - AirPlay2の一部機能は未対応の場合あり
 - 法的配慮（Appleプロトコル利用時のライセンス）
 - OSSのためサポートはコミュニティベース
+
+# WindowsでAirPlayを使う手順（修正版・pacman利用）
+
+## 1. 必要なツールのインストール
+1. [Git for Windows](https://gitforwindows.org/) をインストール
+2. [MSYS2](https://www.msys2.org/) をインストール  
+   - インストール後、MSYS2ターミナルを起動
+3. pacmanで必要なパッケージをインストール  
+   ```sh
+   pacman -Syu
+   pacman -S git mingw-w64-x86_64-gcc mingw-w64-x86_64-cmake mingw-w64-x86_64-ninja
+   pacman -S mingw-w64-x86_64-libplist mingw-w64-x86_64-gstreamer mingw-w64-x86_64-gst-plugins-base
+   pacman -S mingw-w64-x86_64-gst-libav mingw-w64-x86_64-gst-plugins-good mingw-w64-x86_64-gst-plugins-bad
+   ```
+
+## 2. ソースコードの取得
+1. 必要なリポジトリをクローン
+   ```sh
+   git clone https://github.com/airplay/uxplay.git
+   ```
+
+## 3. ビルド準備
+1. MSYS2 MinGW64ターミナルでプロジェクトディレクトリへ移動
+   ```sh
+   cd uxplay
+   ```
+2. 必要に応じて依存パッケージをインストール
+
+## 4. ビルドの実行
+1. CMakeでビルド設定
+   ```sh
+   cmake ..
+   ```
+2. Ninjaでビルド
+   ```sh
+   ninja
+   ```
+
+## 5. 実行・動作確認
+1. ビルドされた実行ファイルを起動し、AirPlay機能が動作するか確認
+
+---
+※ すべてのコマンドはMSYS2 MinGW64ターミナルで実行してください。パスや依存関係はプロジェクトごとに調整してください。
